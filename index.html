@@ -5,82 +5,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego del Sapo</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            height: 100vh;
-            background: #000000;
-            color: #15e620;
-            margin: 0;
-            font-family: 'Courier New', monospace;
-            position: relative;
-        }
-        canvas {
-            border: 2px solid #0bf612;
-            box-shadow: 0 0 10px #222;
-            background-color: #151b1e;
-            background-image: linear-gradient(rgba(137, 137, 137, 0), rgba(255, 255, 255, 0.368)), url('fondo.webp');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-        .score {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 24px;
-            z-index: 2;
-        }
-        #startBtn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 10px 20px;
-            font-size: 20px;
-            background-color: #0bf612;
-            color: white;
-            border: none;
-            cursor: pointer;
-            z-index: 2;
-        }
-        #muteBtn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            z-index: 2;
-        }
-        .controls {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            top: 750px;
+ body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Courier New', monospace; /* Fuente monoespaciada para ASCII */
+    background-color: #222222;
+    color: #595858;
+    flex-direction: column;
+}
 
-        }
-        .controls button {
-            width: 60px;
+canvas {
+    border: 2px solid #0bf612;
+    box-shadow: 0 0 10px #222;
+    background-color: #151b1e;
+    background-image: url('fondo.webp');
+    background-size: cover; /* Ajusta la imagen para que cubra todo el canvas */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center; /* Centra la imagen en el canvas */
+    background-image: linear-gradient(rgba(137, 137, 137, 0.103), rgba(255, 255, 255, 0.368)), url('fondo.webp');
+}
+
+.score {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    font-size: 34px;
+    z-index: 1;
+}
+
+button {
+    width: 60px;
             height: 60px;
-            background-color: rgba(255, 255, 255, 0.7);
+            background-color: rgba(255, 255, 255, 0.085);
             border: 2px solid #0bf612;
             border-radius: 50%;
             font-size: 20px;
             color: #151b1e;
             cursor: pointer;
+}
 
-        }
-        @media (max-width: 768px) {
-            .controls {
-                display: flex;
-            }
-        }
+button#startBtn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 10px 20px;
+    font-size: 11px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0bf612;
+    color: #151b1e;
+    box-shadow: 0 0 5px #222;
+    cursor: pointer;
+    width: 5%;
+}
+
+button#muteBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    font-size: 24px;
+    z-index: 1;
+}
+
+/* Estilo para pantallas grandes (ordenador) */
+#controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Estilo para pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .score {
+        font-size: 24px;
+    }
+
+    canvas {
+        width: 100%;
+        height: auto;
+    }
+
+    #controls {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+    }
+
+    #controls button {
+        flex: 1;
+        margin: 5px;
+        font-size: 16px;
+    }
+
+    #startBtn {
+        display: block;
+    }
+
+    /* Ajustar la posición del sapo para pantallas más pequeñas */
+    canvas {
+        height: calc(100vh - 120px);
+    }
+}
+
+
     </style>
 </head>
 <body>
@@ -98,4 +135,5 @@
     <script src="game.js"></script>
 </body>
 </html>
+
 
