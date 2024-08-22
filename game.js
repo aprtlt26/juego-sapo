@@ -60,10 +60,10 @@ function handleKeyPress(e) {
 function drawFrog() {
     ctx.fillStyle = '#00FF00';
     ctx.font = "15px Arial";
-    ctx.fillText(" @..@ ", frog.x - 10, frog.y);
-    ctx.fillText("(( ---- ))", frog.x - 10, frog.y + 15);
-    ctx.fillText("((           ))", frog.x - 18, frog.y + 35);
-    ctx.fillText("^^^^ ~~ ^^^^", frog.x - 25, frog.y + 55);
+    ctx.fillText(" @..@ ", frog.x - 10, frog.y - 15);
+    ctx.fillText("(( ---- ))", frog.x - 10, frog.y + 5);
+    ctx.fillText("((           ))", frog.x - 18, frog.y + 25);
+    ctx.fillText("^^^^ ~~ ^^^^", frog.x - 25, frog.y + 45);
 
     if (frog.tongueOut) {
         ctx.fillStyle = 'red';
