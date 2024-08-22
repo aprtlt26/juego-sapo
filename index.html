@@ -15,7 +15,7 @@
     background-color: #000000;
     color: #c2f13f;
     flex-direction: column;
-    overflow: hidden; /* Evita el desplazamiento de la pantalla */
+    overflow: hidden;
 }
 
 canvas {
@@ -32,8 +32,8 @@ canvas {
 .score {
     position: absolute;
     top: 20px;
-    left: 300px;
-    font-size: 34px;
+    left: 20px;
+    font-size: 24px;
     z-index: 1;
 }
 
@@ -53,14 +53,14 @@ button#startBtn {
     top: 50%;
     left: 50%;
     padding: 10px 20px;
-    font-size: 11px;
+    font-size: 16px;
     border: none;
     border-radius: 5px;
     background-color: #0bf612;
     color: #151b1e;
     box-shadow: 0 0 5px #222;
     cursor: pointer;
-    width: 5%;
+    width: 15%;
     transform: translate(-50%, -50%);
 }
 
@@ -82,13 +82,8 @@ button#muteBtn {
 
 /* Estilo para pantallas pequeñas (móviles) */
 @media (max-width: 768px) {
-    body {
-        flex-direction: column;
-    }
-
     .score {
-        font-size: 24px;
-        left: 20px; /* Alinea el puntaje a la izquierda para pantallas pequeñas */
+        font-size: 18px;
     }
 
     canvas {
@@ -98,11 +93,45 @@ button#muteBtn {
     }
 
     #controls {
-        position: static;
         display: flex;
-        justify-content: space-between;
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
         width: 100%;
-        margin-top: 10px;
+        justify-content: space-evenly;
+    }
+
+    #controls button {
+        flex: 1;
+        margin: 5px;
+        font-size: 16px;
+    }
+
+    #startBtn {
+        width: 25%;
+    }
+}
+
+@media (orientation: landscape) and (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    canvas {
+        width: 100%;
+        height: auto;
+        max-height: calc(100vh - 120px); /* Ajusta el canvas para que los botones quepan debajo */
+    }
+
+    #controls {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
     }
 
     #controls button {
@@ -113,6 +142,7 @@ button#muteBtn {
 
     #startBtn {
         display: block;
+        width: 20%;
     }
 
     /* Evita que la pantalla se amplíe o desplace en dispositivos móviles */
@@ -122,6 +152,7 @@ button#muteBtn {
         user-select: none;
     }
 }
+
 
 
 
