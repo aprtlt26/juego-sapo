@@ -1,192 +1,170 @@
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
-const startBtn = document.getElementById('startBtn');
-const muteBtn = document.getElementById('muteBtn');
-const leftBtn = document.getElementById('leftBtn');
-const rightBtn = document.getElementById('rightBtn');
-const jumpBtn = document.getElementById('jumpBtn');
-const tongueBtn = document.getElementById('tongueBtn');
-let gameStarted = false;
-let audioMuted = false;
-let gameAudio;  // Variable para manejar el audio del juego
-let collisionAudio = new Audio('take.mp3'); // Cargar el sonido de colisión
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Juego del Sapo</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            background-color: #000000;
+            color: #c2f13f;
+            flex-direction: column;
+            overflow: hidden;
+            touch-action: none; /* Desactiva la manipulación del zoom y el desplazamiento */
+            -ms-touch-action: none; /* IE 10+ */
+            user-select: none; /* Evita la selección de texto */
+        }
 
-const frog = {
-    x: canvas.width / 2 - 20,
-    y: canvas.height - 60,
-    width: 40,
-    height: 20,
-    speed: 40,
-    jumping: false,
-    tongueOut: false,
-    tongueLength: 60
-};
+        canvas {
+            border: 2px solid #0bf612;
+            box-shadow: 0 0 10px #222;
+            background-color: #151b1e;
+            background-image: url('fondo.webp');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: linear-gradient(rgba(137, 137, 137, 0.103), rgba(255, 255, 255, 0.368)), url('fondo.webp');
+        height: 80%;
+        }
 
-let pizzas = [];
-let clouds = [];
-let score = 0;
-const pizzaSpeed = 2;
-const cloudSpeed = 0.5;
-const pizzaFrequency = 60;
-let frameCount = 0;
+        .score {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            z-index: 1;
+        }
 
-const groundY = frog.y;
-const jumpY = groundY - 100;
+        button {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.085);
+            border: 2px solid #0bf612;
+            border-radius: 50%;
+            font-size: 20px;
+            color: #151b1e;
+            cursor: pointer;
+        }
 
-document.addEventListener('keydown', handleKeyPress);
+        button#startBtn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #0bf612;
+            color: #151b1e;
+            box-shadow: 0 0 5px #222;
+            cursor: pointer;
+            width: 25%;
+            transform: translate(-50%, -50%);
+        }
 
-function handleKeyPress(e) {
-    if (!gameStarted) return;
+        button#muteBtn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            font-size: 24px;
+            z-index: 1;
+        }
 
-    if (e.key === 'ArrowLeft' && frog.x > 0) {
-        frog.x -= frog.speed;
-    } else if (e.key === 'ArrowRight' && frog.x < canvas.width - frog.width) {
-        frog.x += frog.speed;
-    } else if (e.key === 'ArrowUp' && !frog.jumping) {
-        frog.jumping = true;
-        frog.y = jumpY;
-        setTimeout(() => {
-            frog.y = groundY;
-            frog.jumping = false;
-        }, 100);
-    } else if (e.key === ' ') {
-        frog.tongueOut = true;
-        setTimeout(() => {
-            frog.tongueOut = false;
-        }, 200);
-    }
-}
+        /* Estilo para pantallas grandes (ordenador) */
+        #controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
 
-function drawFrog() {
-    ctx.fillStyle = '#00FF00';
-    ctx.font = "15px Arial";
-    ctx.fillText(" @..@ ", frog.x - 10, frog.y - 15);
-    ctx.fillText("(( ---- ))", frog.x - 10, frog.y + 5);
-    ctx.fillText("((           ))", frog.x - 18, frog.y + 25);
-    ctx.fillText("^^^^ ~~ ^^^^", frog.x - 25, frog.y + 45);
+        /* Estilo para pantallas pequeñas (móviles) */
+        @media (max-width: 768px) {
+            .score {
+                font-size: 18px;
+            }
 
-    if (frog.tongueOut) {
-        ctx.fillStyle = 'red';
-        ctx.fillRect(frog.x + 11, frog.y - frog.tongueLength, 6, frog.tongueLength);
-    }
-}
+            canvas {
+                width: 90%;
+                height: 80%;
+                max-height: calc(60vh - 10px); /* Ajusta el canvas para que los botones quepan debajo */
+            }
 
-function drawPizza(x, y) {
-    ctx.fillStyle = 'yellow';
-    ctx.fillText("🍕🍕🍕", x - 25, y + 20);
-    ctx.fillText(" 🍕🍕", x - 25, y + 35);
-}
+            #controls {
+                display: flex;
+                position: absolute;
+                bottom: 5px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80%;
+                justify-content: space-evenly;
+            }
 
-function drawCloud(x, y) {
-    ctx.fillStyle = 'white';
-    ctx.fillText("☁☁☁", x, y);
-    ctx.fillText("☁☁☁☁☁☁", x - 20, y + 10);
-    ctx.fillText(" ☁☁☁☁ ", x - 10, y + 20);
-}
+            #controls button {
+                flex: 1;
+                margin: 5px;
+                font-size: 16px;
+            }
 
-function updatePizzas() {
-    if (frameCount % pizzaFrequency === 0) {
-        const x = Math.random() * (canvas.width - 30) + 10;
-        pizzas.push({ x: x, y: 0 });
-    }
-
-    pizzas = pizzas.map(pizza => {
-        pizza.y += pizzaSpeed;
-        return pizza;
-    }).filter(pizza => pizza.y < canvas.height);
-
-    pizzas.forEach(pizza => {
-        drawPizza(pizza.x, pizza.y);
-        if (gameStarted) {  // Verificar si el juego ha comenzado antes de manejar colisiones
-            if (
-                (pizza.y + 20 > frog.y && pizza.y < frog.y + frog.height && pizza.x + 50 > frog.x && pizza.x < frog.x + frog.width) ||
-                (frog.tongueOut && pizza.y + 20 > frog.y - frog.tongueLength && pizza.x + 50 > frog.x + 20 && pizza.x < frog.x + 25)
-            ) {
-                score += 1;
-                pizzas = pizzas.filter(p => p !== pizza);
-                document.getElementById('score').innerText = score;
-                if (!audioMuted) {
-                    collisionAudio.play();  // Reproducir el sonido de colisión
-                }
+            #startBtn {
+                width: 35%;
             }
         }
-    });
-}
 
-function updateClouds() {
-    if (frameCount % 200 === 0) {
-        const x = -100;
-        const y = Math.random() * 100;
-        clouds.push({ x: x, y: y });
-    }
+        @media (orientation: landscape) and (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
 
-    clouds = clouds.map(cloud => {
-        cloud.x += cloudSpeed;
-        return cloud;
-    }).filter(cloud => cloud.x < canvas.width);
+            canvas {
+                width: 100%;
+                height: 60%;
+                max-height: calc(80vh - 120px); /* Ajusta el canvas para que los botones quepan debajo */
+            }
 
-    clouds.forEach(cloud => drawCloud(cloud.x, cloud.y));
-}
+            #controls {
+                position: absolute;
+                bottom: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80%;
+                display: flex;
+                justify-content: space-evenly;
+            }
 
-function gameLoop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    updateClouds();
-    drawFrog();
-    updatePizzas();
-    frameCount++;
-    requestAnimationFrame(gameLoop);
-}
+            #controls button {
+                flex: 1;
+                margin: 5px;
+                font-size: 16px;
+            }
 
-startBtn.addEventListener('click', () => {
-    gameStarted = true;
-    startBtn.style.display = 'none';
+            #startBtn {
+                display: block;
+                width: 35%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="score">Puntaje: <span id="score">0</span></div>
+    <button id="startBtn">Iniciar</button>
+    <button id="muteBtn">🔇</button>
+    <div id="controls">
+        <button id="leftBtn">⬅️</button>
+        <button id="tongueBtn">👅</button>
+        
+        <button id="jumpBtn">⬆️</button>
+        <button id="rightBtn">➡️</button>
+    </div>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
     
-    gameAudio = new Audio('musicjuego.wav');
-    gameAudio.loop = true;
-    if (!audioMuted) {
-        gameAudio.play();
-    }
-});
-
-muteBtn.addEventListener('click', () => {
-    audioMuted = !audioMuted;
-    muteBtn.innerText = audioMuted ? '🔊' : '🔇';
-    if (audioMuted) {
-        gameAudio.pause();
-    } else {
-        gameAudio.play();
-    }
-});
-
-leftBtn.addEventListener('click', () => {
-    if (frog.x > 0) {
-        frog.x -= frog.speed;
-    }
-});
-
-rightBtn.addEventListener('click', () => {
-    if (frog.x < canvas.width - frog.width) {
-        frog.x += frog.speed;
-    }
-});
-
-jumpBtn.addEventListener('click', () => {
-    if (!frog.jumping) {
-        frog.jumping = true;
-        frog.y = jumpY;
-        setTimeout(() => {
-            frog.y = groundY;
-            frog.jumping = false;
-        }, 100);
-    }
-});
-
-tongueBtn.addEventListener('click', () => {
-    frog.tongueOut = true;
-    setTimeout(() => {
-        frog.tongueOut = false;
-    }, 200);
-});
-
-gameLoop();
+    <script src="game.js"></script>
+</body>
+</html>
 
