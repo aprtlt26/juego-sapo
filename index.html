@@ -11,10 +11,11 @@
     align-items: center;
     height: 100vh;
     margin: 0;
-    font-family: 'Courier New', monospace; /* Fuente monoespaciada para ASCII */
-    background-color: #222222;
-    color: #595858;
+    font-family: 'Courier New', monospace;
+    background-color: #000000;
+    color: #c2f13f;
     flex-direction: column;
+    overflow: hidden; /* Evita el desplazamiento de la pantalla */
 }
 
 canvas {
@@ -22,29 +23,29 @@ canvas {
     box-shadow: 0 0 10px #222;
     background-color: #151b1e;
     background-image: url('fondo.webp');
-    background-size: cover; /* Ajusta la imagen para que cubra todo el canvas */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
-    background-position: center; /* Centra la imagen en el canvas */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     background-image: linear-gradient(rgba(137, 137, 137, 0.103), rgba(255, 255, 255, 0.368)), url('fondo.webp');
 }
 
 .score {
     position: absolute;
     top: 20px;
-    left: 10px;
+    left: 300px;
     font-size: 34px;
     z-index: 1;
 }
 
 button {
     width: 60px;
-            height: 60px;
-            background-color: rgba(255, 255, 255, 0.085);
-            border: 2px solid #0bf612;
-            border-radius: 50%;
-            font-size: 20px;
-            color: #151b1e;
-            cursor: pointer;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.085);
+    border: 2px solid #0bf612;
+    border-radius: 50%;
+    font-size: 20px;
+    color: #151b1e;
+    cursor: pointer;
 }
 
 button#startBtn {
@@ -60,6 +61,7 @@ button#startBtn {
     box-shadow: 0 0 5px #222;
     cursor: pointer;
     width: 5%;
+    transform: translate(-50%, -50%);
 }
 
 button#muteBtn {
@@ -86,19 +88,21 @@ button#muteBtn {
 
     .score {
         font-size: 24px;
+        left: 20px; /* Alinea el puntaje a la izquierda para pantallas pequeñas */
     }
 
     canvas {
         width: 100%;
         height: auto;
+        max-height: calc(100vh - 150px); /* Ajusta el canvas para que los botones quepan debajo */
     }
 
     #controls {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
+        position: static;
+        display: flex;
+        justify-content: space-between;
         width: 100%;
+        margin-top: 10px;
     }
 
     #controls button {
@@ -111,11 +115,14 @@ button#muteBtn {
         display: block;
     }
 
-    /* Ajustar la posición del sapo para pantallas más pequeñas */
-    canvas {
-        height: calc(100vh - 120px);
+    /* Evita que la pantalla se amplíe o desplace en dispositivos móviles */
+    html, body {
+        touch-action: manipulation; /* Desactiva el zoom de pellizco */
+        -ms-touch-action: manipulation; /* IE 10+ */
+        user-select: none;
     }
 }
+
 
 
     </style>
@@ -124,7 +131,7 @@ button#muteBtn {
     <div class="score">Puntaje: <span id="score">0</span></div>
     <button id="startBtn">Iniciar</button>
     <button id="muteBtn">🔇</button>
-    <div class="controls">
+    <div id="controls">
         <button id="leftBtn">⬅️</button>
         <button id="jumpBtn">⬆️</button>
         <button id="rightBtn">➡️</button>
@@ -135,5 +142,6 @@ button#muteBtn {
     <script src="game.js"></script>
 </body>
 </html>
+
 
 
