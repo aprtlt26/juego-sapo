@@ -1,7 +1,15 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const startBtn = document.getElementById('startBtn');
+const muteBtn = document.getElementById('muteBtn');
+const leftBtn = document.getElementById('leftBtn');
+const rightBtn = document.getElementById('rightBtn');
+const jumpBtn = document.getElementById('jumpBtn');
+const tongueBtn = document.getElementById('tongueBtn');
 let gameStarted = false;
+let audioMuted = false;
+let gameAudio;  // Variable para manejar el audio del juego
+let collisionAudio = new Audio('take.mp3'); // Cargar el sonido de colisión
 
 const frog = {
     x: canvas.width / 2 - 20,
@@ -9,7 +17,9 @@ const frog = {
     width: 40,
     height: 20,
     speed: 40,
-    jumping: false
+    jumping: false,
+    tongueOut: false,
+    tongueLength: 60
 };
 
 let pizzas = [];
@@ -39,16 +49,26 @@ function handleKeyPress(e) {
             frog.y = groundY;
             frog.jumping = false;
         }, 100);
+    } else if (e.key === ' ') {
+        frog.tongueOut = true;
+        setTimeout(() => {
+            frog.tongueOut = false;
+        }, 200);
     }
 }
 
 function drawFrog() {
     ctx.fillStyle = '#00FF00';
     ctx.font = "15px Arial";
-    ctx.fillText("     @..@ ", frog.x, frog.y);
-    ctx.fillText("     ( ---- )", frog.x, frog.y + 15);
-    ctx.fillText("   ( >__< )", frog.x, frog.y + 35);
-    ctx.fillText("   ^^ ~~ ^^", frog.x, frog.y + 55);
+    ctx.fillText(" @..@ ", frog.x - 10, frog.y);
+    ctx.fillText("(( ---- ))", frog.x - 10, frog.y + 15);
+    ctx.fillText("((           ))", frog.x - 18, frog.y + 35);
+    ctx.fillText("^^^^ ~~ ^^^^", frog.x - 25, frog.y + 55);
+
+    if (frog.tongueOut) {
+        ctx.fillStyle = 'red';
+        ctx.fillRect(frog.x + 11, frog.y - frog.tongueLength, 6, frog.tongueLength);
+    }
 }
 
 function drawPizza(x, y) {
@@ -77,15 +97,18 @@ function updatePizzas() {
 
     pizzas.forEach(pizza => {
         drawPizza(pizza.x, pizza.y);
-        if (
-            pizza.y + 20 > frog.y &&
-            pizza.y < frog.y + frog.height &&
-            pizza.x + 50 > frog.x &&
-            pizza.x < frog.x + frog.width
-        ) {
-            score += 1;
-            pizzas = pizzas.filter(p => p !== pizza);
-            document.getElementById('score').innerText = score;
+        if (gameStarted) {  // Verificar si el juego ha comenzado antes de manejar colisiones
+            if (
+                (pizza.y + 20 > frog.y && pizza.y < frog.y + frog.height && pizza.x + 50 > frog.x && pizza.x < frog.x + frog.width) ||
+                (frog.tongueOut && pizza.y + 20 > frog.y - frog.tongueLength && pizza.x + 50 > frog.x + 20 && pizza.x < frog.x + 25)
+            ) {
+                score += 1;
+                pizzas = pizzas.filter(p => p !== pizza);
+                document.getElementById('score').innerText = score;
+                if (!audioMuted) {
+                    collisionAudio.play();  // Reproducir el sonido de colisión
+                }
+            }
         }
     });
 }
@@ -118,8 +141,52 @@ startBtn.addEventListener('click', () => {
     gameStarted = true;
     startBtn.style.display = 'none';
     
-    const audio = new Audio('musicjuego.wav');
-    audio.play();
+    gameAudio = new Audio('musicjuego.wav');
+    gameAudio.loop = true;
+    if (!audioMuted) {
+        gameAudio.play();
+    }
+});
+
+muteBtn.addEventListener('click', () => {
+    audioMuted = !audioMuted;
+    muteBtn.innerText = audioMuted ? '🔊' : '🔇';
+    if (audioMuted) {
+        gameAudio.pause();
+    } else {
+        gameAudio.play();
+    }
+});
+
+leftBtn.addEventListener('click', () => {
+    if (frog.x > 0) {
+        frog.x -= frog.speed;
+    }
+});
+
+rightBtn.addEventListener('click', () => {
+    if (frog.x < canvas.width - frog.width) {
+        frog.x += frog.speed;
+    }
+});
+
+jumpBtn.addEventListener('click', () => {
+    if (!frog.jumping) {
+        frog.jumping = true;
+        frog.y = jumpY;
+        setTimeout(() => {
+            frog.y = groundY;
+            frog.jumping = false;
+        }, 100);
+    }
+});
+
+tongueBtn.addEventListener('click', () => {
+    frog.tongueOut = true;
+    setTimeout(() => {
+        frog.tongueOut = false;
+    }, 200);
 });
 
 gameLoop();
+
