@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Juego del Sapo</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
     <style>
         body {
             display: flex;
@@ -11,14 +14,14 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: 'Courier New', monospace;
+            font-family: 'Press Start 2P', monospace;
+            font-size:8px;
             background-color: #000000;
             color: #c2f13f;
             flex-direction: column;
             overflow: hidden;
-            touch-action: none; /* Desactiva la manipulación del zoom y el desplazamiento */
-            -ms-touch-action: none; /* IE 10+ */
-            user-select: none; /* Evita la selección de texto */
+            touch-action: none;
+            user-select: none;
         }
 
         canvas {
@@ -29,8 +32,7 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-            background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(95, 95, 95, 0.368)), url('fondo.webp');
-        height: 80%;
+            height: 80%;
         }
 
         .score {
@@ -42,13 +44,13 @@
         }
 
         button {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(255, 255, 255, 0.085);
-            border: 2px solid #0bf612;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.121);
+            border: 2px solid #0bf6b7;
             border-radius: 50%;
-            font-size: 20px;
-            color: #151b1e;
+            font-size: 15px;
+            color: #c2c2c2;
             cursor: pointer;
         }
 
@@ -77,14 +79,12 @@
             z-index: 1;
         }
 
-        /* Estilo para pantallas grandes (ordenador) */
         #controls {
             display: flex;
             justify-content: center;
             margin-top: 20px;
         }
 
-        /* Estilo para pantallas pequeñas (móviles) */
         @media (max-width: 768px) {
             .score {
                 font-size: 18px;
@@ -93,7 +93,7 @@
             canvas {
                 width: 90%;
                 height: 80%;
-                max-height: calc(60vh - 10px); /* Ajusta el canvas para que los botones quepan debajo */
+                max-height: calc(60vh - 10px);
             }
 
             #controls {
@@ -124,8 +124,8 @@
 
             canvas {
                 width: 100%;
-                height: 0%;
-                max-height: calc(80vh - 120px); /* Ajusta el canvas para que los botones quepan debajo */
+                height: auto;
+                max-height: calc(80vh - 120px);
             }
 
             #controls {
@@ -149,23 +149,607 @@
                 width: 35%;
             }
         }
+
+        #auth-modal {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.85);
+            border: 2px solid #0bf612;
+            box-shadow: 0 0 10px #0bf612;
+            padding: 20px;
+            z-index: 100;
+            width: 80%;
+            max-width: 400px;
+            color: #c2f13f;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+        }
+
+        #auth-modal input[type="email"],
+        #auth-modal input[type="password"],
+        #auth-modal input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #0bf612;
+            border-radius: 5px;
+            background-color: #151b1e;
+            color: #c2f13f;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        #auth-modal button {
+            width: 95%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #0bf612;
+            color: #151b1e;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            box-shadow: 0 0 5px #222;
+        }
+
+        #auth-message {
+            margin-top: 15px;
+            color: #ff5c5c;
+            font-size: 14px;
+        }
+
+        .section {
+            text-align: center;
+        }
+
+        #auth-modal img {
+            width: 20px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        #score-details {
+            margin-top: 20px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        #score-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #score-details ul li {
+            margin-bottom: 5px;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+        }
+
+        .rewards-list{
+             margin-top:55px;
+ 
+        }
+
+        #toggleRegisterFormBtn {
+    position: absolute;
+    width: 12%;
+    height: 5%;
+    top: 20px;
+    left: 80%;
+    transform: translateX(-50%);
+    z-index: 2;
+    padding: 10px 20px;
+    background-color: #0bf612;
+    color: #151b1e;
+    border: 2px solid #0bf612;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+    #toggleRegisterFormBtn {
+        width: 50%;
+        height: auto;
+        top: 70px; /* Ajuste para colocarlo debajo del puntaje */
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    #toggleRegisterFormBtn {
+        width: 70%;
+        top: 60px; /* Ajuste para dispositivos más pequeños */
+        padding: 6px 12px;
+        font-size: 10px;
+    }
+}
+
+
+.rewards-list {
+    margin-top: 55px;
+    font-size: 12px;
+    text-align: left;
+    padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+    .rewards-list {
+        font-size: 10px;
+        padding: 0 15px;
+        margin-top: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .rewards-list {
+        font-size: 8px;
+        padding: 0 10px;
+        margin-top: 30px;
+    }
+}
+
     </style>
 </head>
 <body>
     <div class="score">Puntaje: <span id="score">0</span></div>
+    <div class="rewards-list">
+        <p>Points:</p>
+        <p>1000 free delivery</p>
+        <p>3000 Borde de queso y albahaca para tu pedido de 3 pizzas.</p>
+        <p>5000 reclama una pizza gratis en tu pedido de 3.</p>
+
+    </div>
+    <div id="score-details"></div>
+    
+   
     <button id="startBtn">Iniciar</button>
     <button id="muteBtn">🔇</button>
+    <button id="logoutBtn" style="display:none;">Salir</button>
     <div id="controls">
         <button id="leftBtn">⬅️</button>
         <button id="tongueBtn">👅</button>
-        
         <button id="jumpBtn">⬆️</button>
         <button id="rightBtn">➡️</button>
-    </div>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <button id="toggleRegisterFormBtn" style="
+        position: absolute; 
+        width: 12%;
+        height: 5%;
+        top: 20px; 
+        left: 80%; 
+        transform: translateX(-50%); 
+        z-index: 2; 
+        padding: 10px 20px; 
+        background-color: #0bf612; 
+        color: #151b1e; 
+        border: 2px solid #0bf612; 
+        border-radius: 10px; 
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        font-family: 'Press Start 2P', monospace; 
+        font-size: 14px; 
+        cursor: pointer;
+        text-transform: uppercase;
+    ">
+        Registro
+    </button>
     
-    <script src="game.js"></script>
+    </div>
+
+
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+
+    <!-- Modal de autenticación -->
+    <div id="auth-modal" style="display:none;">
+        <section class="section">
+            <div id="login-section" style="display: none;">
+                <form id="login-form">
+                    <input type="email" id="login-email" placeholder="Your Email" required><br>
+                    <input type="password" id="login-password" placeholder="Your Password" required><br>
+                    <button type="button" id="login-btn">Entrar</button>
+                </form>
+            </div>
+            <div id="register-section" style="display: block;">
+                <form id="register-form">
+                    <input type="text" id="nombre" placeholder="Your Name" required><br>
+                    <input type="email" id="correo" placeholder="Your Email" required><br>
+                    <input type="password" id="clave" placeholder="Your Password" required><br>
+                    <button type="button" id="register-btn">Registrar</button>
+                </form>
+            </div>
+            <p id="register-message">
+                Regístrate para guardar tu puntuación:
+               
+            </p>
+            <button id="toggleFormBtn">Login</button>
+            <button id="skipRegisterBtn">Me registro después</button>
+            <div id="auth-message"></div>
+        </section>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDT_0ZfumFpyVWhcbRRCffvAq1mYPSTwks",
+            authDomain: "gourmet-floral.firebaseapp.com",
+            projectId: "gourmet-floral",
+            storageBucket: "gourmet-floral.appspot.com",
+            messagingSenderId: "135192828171",
+            appId: "1:135192828171:web:4bdcc4037d8f24036e6a0e",
+            measurementId: "G-92SG70M1CX"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        document.getElementById('register-btn').addEventListener('click', async () => {
+    const nombre = document.getElementById('nombre').value;
+    const correo = document.getElementById('correo').value;
+    const clave = document.getElementById('clave').value;
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, correo, clave);
+        console.log("Usuario registrado:", userCredential.user);
+        await setDoc(doc(db, "usuarios", userCredential.user.uid), { nombre, correo, highScore: 0, rewards: [] });
+        score = 0;  // Reiniciar la puntuación a 0
+        document.getElementById('score').innerText = score;  // Actualizar la visualización de la puntuación
+        alert("Usuario registrado exitosamente.");
+        hideAuthModal(userCredential.user);
+    } catch (error) {
+        console.error("Error al registrar el usuario:", error);
+        alert(error.message);
+    }
+});
+
+
+        document.getElementById('login-btn').addEventListener('click', async () => {
+    const correo = document.getElementById('login-email').value;
+    const clave = document.getElementById('login-password').value;
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, correo, clave);
+        console.log("Usuario logueado:", userCredential.user);
+        score = 0;  // Reiniciar la puntuación a 0
+        document.getElementById('score').innerText = score;  // Actualizar la visualización de la puntuación
+        alert("Inicio de sesión exitoso.");
+        hideAuthModal(userCredential.user);
+    } catch (error) {
+        console.error("Error al iniciar sesión:", error);
+        alert(error.message);
+    }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+    try {
+        await signOut(auth);
+        alert("Has cerrado sesión.");
+        score = 0;  // Reiniciar la puntuación a 0
+        document.getElementById('score').innerText = score;  // Actualizar la visualización de la puntuación
+        currentUser = null;
+        document.getElementById('score-details').innerHTML = "";
+        document.getElementById('logoutBtn').style.display = 'none';
+        gameStarted = false;
+        startBtn.style.display = 'block';
+    } catch (error) {
+        console.error("Error al cerrar sesión:", error);
+        alert(error.message);
+    }
+});
+
+
+        document.getElementById('toggleFormBtn').addEventListener('click', () => {
+            const loginSection = document.getElementById("login-section");
+            const registerSection = document.getElementById("register-section");
+            if (loginSection.style.display === "none") {
+                loginSection.style.display = "block";
+                registerSection.style.display = "none";
+                document.getElementById('toggleFormBtn').innerText = "Switch to Register";
+            } else {
+                loginSection.style.display = "none";
+                registerSection.style.display = "block";
+                document.getElementById('toggleFormBtn').innerText = "Switch to Login";
+            }
+        });
+
+        document.getElementById('skipRegisterBtn').addEventListener('click', () => {
+            hideAuthModal();
+        });
+
+        function hideAuthModal(user = null) {
+            document.getElementById('auth-modal').style.display = 'none';
+            if (user) {
+                currentUser = user;
+                document.getElementById('score-details').innerHTML = `Bienvenido, ${user.email}`;
+                document.getElementById('logoutBtn').style.display = 'block';
+            }
+            gameStarted = true;
+            gameLoop();  // Reiniciar el juego
+        }
+    </script>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const startBtn = document.getElementById('startBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const leftBtn = document.getElementById('leftBtn');
+        const rightBtn = document.getElementById('rightBtn');
+        const jumpBtn = document.getElementById('jumpBtn');
+        const tongueBtn = document.getElementById('tongueBtn');
+        const authModal = document.getElementById('auth-modal');
+        const scoreDetails = document.getElementById('score-details');
+        let gameStarted = false;
+        let audioMuted = false;
+        let gameAudio;
+        let collisionAudio = new Audio('take.mp3');
+        let currentUser = null;
+        let animationFrameId;
+
+        const frog = {
+            x: canvas.width / 2 - 20,
+            y: canvas.height - 60,
+            width: 40,
+            height: 20,
+            speed: 40,
+            jumping: false,
+            tongueOut: false,
+            tongueLength: 60,
+            colliding: false
+        };
+
+        let pizzas = [];
+        let clouds = [];
+        let score = 0;
+        const pizzaSpeed = 2;
+        const cloudSpeed = 0.5;
+        const pizzaFrequency = 60;
+        let frameCount = 0;
+
+        const groundY = frog.y;
+        const jumpY = groundY - 100;
+
+        document.addEventListener('keydown', handleKeyPress);
+
+        function handleKeyPress(e) {
+            if (!gameStarted) return;
+
+            if (e.key === 'ArrowLeft' && frog.x > 0) {
+                frog.x -= frog.speed;
+            } else if (e.key === 'ArrowRight' && frog.x < canvas.width - frog.width) {
+                frog.x += frog.speed;
+            } else if (e.key === 'ArrowUp' && !frog.jumping) {
+                frog.jumping = true;
+                frog.y = jumpY;
+                setTimeout(() => {
+                    frog.y = groundY;
+                    frog.jumping = false;
+                }, 100);
+            } else if (e.key === ' ') {
+                frog.tongueOut = true;
+                setTimeout(() => {
+                    frog.tongueOut = false;
+                }, 200);
+            }
+        }
+
+        function drawFrog() {
+    if (frog.colliding) {
+        ctx.fillStyle = '#FFD700';
+        setTimeout(() => {
+            frog.colliding = false;
+        }, 100);
+    } else {
+        ctx.fillStyle = '#00FF00';
+    }
+    ctx.font = "15px Arial";
+    ctx.fillText(" @..@ ", frog.x - 10, frog.y - 15);
+    ctx.fillText("(( ---- ))", frog.x - 10, frog.y + 5);
+    ctx.fillText("((           ))", frog.x - 18, frog.y + 25);
+    ctx.fillText("^^^^ ~~ ^^^^", frog.x - 25, frog.y + 45);
+
+    if (frog.tongueOut) {
+        frog.tongueLength = 100;  // Aquí estableces la nueva longitud de la lengua
+        ctx.fillStyle = 'red';
+        ctx.beginPath();
+        ctx.moveTo(frog.x + 13, frog.y);
+        ctx.lineTo(frog.x + 13, frog.y - frog.tongueLength);
+        ctx.arc(frog.x + 16, frog.y - frog.tongueLength, 9, Math.PI, 0, true);
+        ctx.closePath();
+        ctx.fill();
+    }
+}
+
+
+        function drawPizza(x, y) {
+            ctx.fillStyle = 'yellow';
+            ctx.fillText("🍕🍕🍕", x - 25, y + 20);
+            ctx.fillText(" 🍕🍕", x - 25, y + 35);
+        }
+
+        function drawCloud(x, y) {
+            ctx.fillStyle = 'white';
+            ctx.fillText("☁☁☁", x, y);
+            ctx.fillText("☁☁☁☁☁☁", x - 20, y + 10);
+            ctx.fillText(" ☁☁☁☁ ", x - 10, y + 20);
+        }
+
+
+        let authModalShown = false;
+
+        function updatePizzas() {
+    if (frameCount % pizzaFrequency === 0) {
+        const x = Math.random() * (canvas.width - 30) + 10;
+        pizzas.push({ x: x, y: 0 });
+    }
+
+    pizzas = pizzas.map(pizza => {
+        pizza.y += pizzaSpeed;
+        return pizza;
+    }).filter(pizza => pizza.y < canvas.height);
+
+    pizzas.forEach(pizza => {
+        drawPizza(pizza.x, pizza.y);
+        if (gameStarted) {
+            if (
+                (pizza.y + 20 > frog.y && pizza.y < frog.y + frog.height && pizza.x + 50 > frog.x && pizza.x < frog.x + frog.width) ||
+                (frog.tongueOut && pizza.y + 20 > frog.y - frog.tongueLength && pizza.x + 50 > frog.x + 20 && pizza.x < frog.x + 25)
+            ) {
+                score += 1;
+                frog.colliding = true;
+                pizzas = pizzas.filter(p => p !== pizza);
+                document.getElementById('score').innerText = score;
+                if (!audioMuted) {
+                    collisionAudio.play();
+                }
+                if (score >= 1000 && currentUser) {
+                    updateRewards();
+                } else if (score >= 10 && !currentUser && !authModalShown) {
+                    authModalShown = true; // Marca que el formulario ya fue mostrado
+                    showAuthModal();
+                }
+            }
+        }
+    });
+}
+
+function showAuthModal() {
+    authModal.style.display = 'block';
+    gameStarted = true;  // El juego continúa
+}
+
+
+        function updateClouds() {
+            if (frameCount % 200 === 0) {
+                const x = -100;
+                const y = Math.random() * 100;
+                clouds.push({ x: x, y: y });
+            }
+
+            clouds = clouds.map(cloud => {
+                cloud.x += cloudSpeed;
+                return cloud;
+            }).filter(cloud => cloud.x < canvas.width);
+
+            clouds.forEach(cloud => drawCloud(cloud.x, cloud.y));
+        }
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            updateClouds();
+            drawFrog();
+            updatePizzas();
+            frameCount++;
+            if (gameStarted) {
+                animationFrameId = requestAnimationFrame(gameLoop);
+            }
+        }
+
+        function updateRewards() {
+            let rewards = [];
+            if (score >= 1000) rewards.push("10% de descuento");
+            if (score >= 3000) rewards.push("Domicilio gratis");
+            if (score >= 5000) rewards.push("Pizza gratis");
+
+            updateDoc(doc(db, "usuarios", currentUser.uid), {
+                highScore: score,
+                rewards: rewards
+            });
+        }
+
+        startBtn.addEventListener('click', () => {
+            gameStarted = true;
+            startBtn.style.display = 'none';
+
+            gameAudio = new Audio('musicjuego.wav');
+            gameAudio.loop = true;
+            if (!audioMuted) {
+                gameAudio.play();
+            }
+
+            gameLoop();
+        });
+
+        muteBtn.addEventListener('click', () => {
+            audioMuted = !audioMuted;
+            muteBtn.innerText = audioMuted ? '🔊' : '🔇';
+            if (audioMuted) {
+                gameAudio.pause();
+            } else {
+                gameAudio.play();
+            }
+        });
+
+        leftBtn.addEventListener('click', () => {
+            if (frog.x > 0) {
+                frog.x -= frog.speed;
+            }
+        });
+
+        rightBtn.addEventListener('click', () => {
+            if (frog.x < canvas.width - frog.width) {
+                frog.x += frog.speed;
+            }
+        });
+
+        jumpBtn.addEventListener('click', () => {
+            if (!frog.jumping) {
+                frog.jumping = true;
+                frog.y = jumpY;
+                setTimeout(() => {
+                    frog.y = groundY;
+                    frog.jumping = false;
+                }, 100);
+            }
+        });
+
+        tongueBtn.addEventListener('click', () => {
+            frog.tongueOut = true;
+            setTimeout(() => {
+                frog.tongueOut = false;
+            }, 200);
+        });
+
+        function showAuthModal() {
+            gameStarted = false;
+            authModal.style.display = 'block';
+        }
+
+        function hideAuthModal() {
+            authModal.style.display = 'none';
+            gameStarted = true;
+            scoreDetails.innerHTML = `Bienvenido, ${currentUser.displayName || currentUser.email}<br>Puntuación más alta: ${score}`;
+            gameLoop(); // Reinicia el bucle del juego
+        }
+
+        document.getElementById('toggleRegisterFormBtn').addEventListener('click', () => {
+    const authModal = document.getElementById('auth-modal');
+    if (authModal.style.display === 'none' || authModal.style.display === '') {
+        authModal.style.display = 'block';
+    } else {
+        authModal.style.display = 'none';
+    }
+});
+
+    </script>
 </body>
+
+
 </html>
 
 
