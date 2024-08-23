@@ -299,6 +299,87 @@
         padding: 0 10px;
         margin-top: 30px;
     }
+    /* Media Query para pantallas con un ancho máximo de 768px */
+@media (max-width: 768px) {
+    /* Ajustes para la clase .score */
+    .score {
+        position: static; /* Elimina el posicionamiento absoluto */
+        margin-top: 10px; /* Añade margen superior para separación */
+        margin-left: 0; /* Centra el texto */
+        text-align: center; /* Centra el contenido */
+        width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    }
+
+    /* Ajustes para el botón #muteBtn */
+    #muteBtn {
+        position: static; /* Elimina el posicionamiento absoluto */
+        margin-top: 10px; /* Añade margen superior */
+        align-self: center; /* Centra el botón horizontalmente */
+    }
+
+    /* Ajustes para el botón #toggleRegisterFormBtn */
+    #toggleRegisterFormBtn {
+        position: static; /* Elimina el posicionamiento absoluto */
+        width: 50%; /* Ajusta el ancho para pantallas pequeñas */
+        margin: 10px auto; /* Centra el botón y añade margen vertical */
+        display: block; /* Asegura que se muestre como bloque */
+    }
+
+    /* Ajustes para el canvas */
+    canvas {
+        margin-top: 20px; /* Añade margen superior para separar del encabezado */
+        width: 90%; /* Ajusta el ancho para pantallas pequeñas */
+        height: auto; /* Permite que la altura se ajuste automáticamente */
+    }
+
+    /* Ajustes para el contenedor de controles */
+    #controls {
+        position: static; /* Elimina el posicionamiento absoluto */
+        margin-top: 20px; /* Añade margen superior */
+        width: 100%; /* Asegura que ocupe todo el ancho disponible */
+        justify-content: space-around; /* Distribuye los botones de manera uniforme */
+    }
+}
+
+/* Media Query para pantallas con un ancho máximo de 480px */
+@media (max-width: 480px) {
+    /* Repite los mismos ajustes que en el media query anterior */
+    .score {
+        position: static;
+        margin-top: 10px;
+        margin-left: 0;
+        text-align: center;
+        width: 100%;
+        font-size: 16px; /* Ajusta el tamaño de fuente si es necesario */
+    }
+
+    #muteBtn {
+        position: static;
+        margin-top: 10px;
+        align-self: center;
+    }
+
+    #toggleRegisterFormBtn {
+        position: static;
+        width: 70%; /* Ajusta el ancho para pantallas aún más pequeñas */
+        margin: 10px auto;
+        display: block;
+    }
+
+    canvas {
+        margin-top: 20px;
+        width: 95%;
+        height: auto;
+    }
+
+    #controls {
+        position: static;
+        margin-top: 20px;
+        width: 100%;
+        justify-content: space-around;
+    }
+}
+
 }
 
     </style>
@@ -324,23 +405,7 @@
         <button id="jumpBtn">⬆️</button>
         <button id="rightBtn">➡️</button>
         <button id="toggleRegisterFormBtn" style="
-        position: absolute; 
-        width: 12%;
-        height: 5%;
-        top: 20px; 
-        left: 80%; 
-        transform: translateX(-50%); 
-        z-index: 2; 
-        padding: 10px 20px; 
-        background-color: #0bf612; 
-        color: #151b1e; 
-        border: 2px solid #0bf612; 
-        border-radius: 10px; 
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        font-family: 'Press Start 2P', monospace; 
-        font-size: 14px; 
-        cursor: pointer;
-        text-transform: uppercase;
+       
     ">
         Registro
     </button>
