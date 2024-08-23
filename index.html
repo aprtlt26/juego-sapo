@@ -164,8 +164,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: rgba(0, 0, 0, 0.85);
-            border: 2px solid #0bf612;
-            box-shadow: 0 0 10px #0bf612;
+            text-shadow: 0 0 10px #0bf612;
             padding: 20px;
             z-index: 100;
             width: 80%;
@@ -252,29 +251,37 @@
     z-index: 2;
     padding: 10px 20px;
     background-color: #0bf6b7f4;
-    box-shadow: 0 0 10px #ffffff;
+    text-shadow: 0 0 10px #ffffff;
     top: 30px; /* Ajuste para dispositivos más pequeños */
-
-    color: #9e9e9e;
-    border: 2px solid #0bf612;
+    color: #080808;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     font-family: 'Press Start 2P', monospace;
-    font-size: 14px;
+    font-size: 10px;
     cursor: pointer;
     text-transform: uppercase;
-    z-index: 1000;
 }
 
 @media (max-width: 768px) {
     #toggleRegisterFormBtn {
 
-            position: absolute;
-            width: 25%;
-            padding: 16px 18px;
-            font-size: 10px;
-            top: -570px;
-
+        position: absolute;
+    width: 12%;
+    height: 5%;
+    left: 80%;
+    transform: translateX(-50%);
+    z-index: 2;
+    padding: 10px 20px;
+    background-color: #00000000;
+    box-shadow: 0 0 10px #ffffff;
+    top: -500px; /* Ajuste para dispositivos más pequeños */
+border: none;
+    color: #9e9e9e;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
 
         }
 }
@@ -325,9 +332,9 @@
     <div class="score">Puntaje: <span id="score">0</span></div>
     <div class="rewards-list">
         <p>Points:</p>
-        <p>1000 free delivery</p>
-        <p>3000 Borde de queso y albahaca para tu pedido de 3 pizzas.</p>
-        <p>5000 reclama una pizza gratis en tu pedido de 3.</p>
+        <p>1000 Free Delivery</p>
+        <p>3000 Borde Relleno</p>
+        <p>5000 Pizza Gratis!</p>
 
     </div>
     <div id="score-details"></div>
@@ -341,11 +348,7 @@
         <button id="tongueBtn">👅</button>
         <button id="jumpBtn">⬆️</button>
         <button id="rightBtn">➡️</button>
-        <button id="toggleRegisterFormBtn" style="
-       
-    ">
-    LogIN
-    </button>
+        <button id="toggleRegisterFormBtn">LogIN</button>
     
     </div>
 
