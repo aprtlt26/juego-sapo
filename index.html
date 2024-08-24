@@ -30,7 +30,7 @@
         canvas {
             border: 2px solid #0bf613;
             box-shadow: 0 0 10px #d5cece;
-            background-color: #000000;
+            background-color: #01010100;
             background-image: url('fondo.webp');
             background-size: cover;
             background-repeat: no-repeat;
@@ -83,7 +83,7 @@
     
         button#startBtn {
             position: absolute;
-            top: 30%;
+            top: 35%;
             left: 50%;
             padding: 1px 10px;
             font-size: 16px;
@@ -100,9 +100,9 @@
     
         button#muteBtn {
             display: flex;
-            position: relative;
+            position: absolute;
             top: 5px;
-            right: 1px;
+            left: 5px;
             background: transparent;
             font-size: 8px;
             z-index: 1;
@@ -130,7 +130,7 @@
                 width: 70%;
                 height: auto;
                 max-height: 50vh;
-                margin-top: 60px;
+                margin-top: 130px;
             }
     
             #controls {
@@ -163,7 +163,7 @@
             canvas {
                 width: 90%;
                 height: auto;
-                max-height: 65vh;
+                max-height: 95vh;
             }
     
             #controls {
@@ -629,20 +629,27 @@ document.getElementById('toggleFormBtn').addEventListener('click', () => {
                 }, 200);
             }
         }
+        
         function drawFrog() {
+    // Definir la animación de parpadeo
+    let blinkFrequency = 500; // Frecuencia de parpadeo en milisegundos
+    let currentTime = Date.now();
+    let isBlinking = Math.floor(currentTime / blinkFrequency) % 2 === 0;
+
     // Añadir el efecto de neón al sapo
-    ctx.shadowColor = frog.colliding ? '#FFD700' : '#00FF00'; // Color de la sombra dependiendo si está colisionando o no
-    ctx.shadowBlur = 5; // Intensidad del brillo
+    ctx.shadowColor = frog.colliding ? '#FFFFFF' : (isBlinking ? '#00FF00' : '#AAFFAA'); // Color de la sombra dependiendo si está colisionando o parpadeando
+    ctx.shadowBlur = 30; // Intensidad del brillo
 
     if (frog.colliding) {
-        ctx.fillStyle = '#FFD700';
+        ctx.fillStyle = '#FFFFFF'; // Blanco
         setTimeout(() => {
             frog.colliding = false;
         }, 300);
     } else {
-        ctx.fillStyle = '#00FF00';
+        ctx.fillStyle = isBlinking ? '#00FF00' : '#AAFFAA'; // Verde claro y más claro
     }
-    
+
+    // Dibujar la rana
     ctx.font = "15px Arial";
     ctx.fillText(" @..@ ", frog.x - 10, frog.y - 15);
     ctx.fillText("(( ---- ))", frog.x - 10, frog.y + 5);
@@ -665,8 +672,10 @@ document.getElementById('toggleFormBtn').addEventListener('click', () => {
 
     // Restaurar el contexto gráfico para que otros elementos no se vean afectados
     ctx.shadowColor = "transparent";
-    ctx.shadowBlur = 10;
+    ctx.shadowBlur = 0;
 }
+
+
 
 
 
@@ -845,6 +854,7 @@ function showAuthModal() {
 
 
 </html>
+
 
 
 
