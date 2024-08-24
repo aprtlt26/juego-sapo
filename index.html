@@ -8,7 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+
+   
+   <style>
         body {
             display: flex;
             justify-content: center;
@@ -16,7 +20,7 @@
             height: 100vh;
             margin: 0;
             font-family: 'Press Start 2P', monospace;
-            font-size: 8px;
+            font-size: 7px;
             background-color: #000000;
             color: #c2f13f;
             flex-direction: column;
@@ -35,15 +39,16 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-            width: 60%;
+            width: 80%;
             height: auto;
-            margin-top: 150px;
-            max-height: 80vh; /* Ajusta la altura máxima del canvas */
+            margin-top:80px;
+            height:60vh; 
+            max-height: 100vh; /* Ajusta la altura máxima del canvas */
         }
     
         .score {
             position: absolute;
-            top: 80px;
+            top: 125px;
             left: 20px;
             font-size: 18px;
             z-index: 1;
@@ -51,39 +56,45 @@
     
         .pizza-title {
             position: absolute;
-            top: 20px;
+            top: 30px;
             width: 100%;
             text-align: center;
-            font-size: 44px; /* Ajusta el tamaño en móviles */
+            font-size: 40px; /* Ajusta el tamaño en móviles */
             color: #c0c0c0;
             text-shadow: 0 0 10px #c0c0c0, 0 0 20px #c0c0c0, 0 0 30px #c0c0c0;
             animation: neon-silver 1.5s infinite alternate;
         }
+
+         
+        .pizza-title1 {
+            position: absolute;
+            top: 660px;
+            width: 100%;
+            text-align: center;
+            font-size: 17px; /* Ajusta el tamaño en móviles */
+            color: #ffac05b4;
+            text-shadow: 0 0 10px #c0c0c0, 0 0 20px #c0c0c0, 0 0 30px #c0c0c0;
+            animation: neon-silver 1.5s infinite alternate;
+            z-index: 1000;
+        }
+
+            
+    
     
         .rewards-list {
             position: absolute;
-            top: 100px;
+            top: 145px;
             left: 5px;
-            font-size: 10px;
+            font-size: 9px;
             color: #d9ff70;
             z-index: 2;
         }
     
-        button {
-            width: 30px;
-            height: 30px;
-            background-color: rgba(0, 0, 0, 0.476);
-            box-shadow: 9 9 15px #e2e2e2;
-            border: 2px solid #0bf6b7;
-            border-radius: 50%;
-            font-size: 15px;
-            color: #c2c2c2;
-            cursor: pointer;
-        }
+     
     
         button#startBtn {
             position: absolute;
-            top: 35%;
+            top: 50%;
             left: 50%;
             padding: 1px 10px;
             font-size: 16px;
@@ -101,8 +112,8 @@
         button#muteBtn {
             display: flex;
             position: absolute;
-            top: 5px;
-            left: 5px;
+            top: 10px;
+            left: 15px;
             background: transparent;
             font-size: 8px;
             z-index: 1;
@@ -125,12 +136,17 @@
             .pizza-title {
                 font-size: 32px;
             }
+
+            .pizza-title1 {
+                font-size: 12px;
+                top: 50%;
+            }
     
             canvas {
                 width: 70%;
                 height: auto;
-                max-height: 50vh;
-                margin-top: 130px;
+                max-height: 80vh;
+                margin-top: 90px;
             }
     
             #controls {
@@ -153,17 +169,21 @@
     
         @media (max-width: 480px) {
             .score {
-                font-size: 16px;
+
+                top: 135px;
+                font-size: 14px;
             }
     
             .pizza-title {
-                font-size: 24px;
+                font-size: 19px;
+                top: 25px;
             }
     
             canvas {
                 width: 90%;
-                height: auto;
+                height: 100%;
                 max-height: 95vh;
+
             }
     
             #controls {
@@ -180,6 +200,7 @@
     
             button#startBtn {
                 width: 60%;
+                top: 40%;
             }
         }
     
@@ -311,6 +332,7 @@
             line-height: 50px;
             transition: all 0.3s ease-in-out;
             animation: blink 1.5s infinite;
+            margin-top: 50px;
         }
     
         #controls button:hover {
@@ -386,11 +408,171 @@
     color: #ffffff;
 }
 
+
+.open-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 30px;
+    color: #ff00ff;
+    text-align: center;
+    text-shadow: 
+        0 0 5px #ff00ff,
+        0 0 10px #ff00ff,
+        0 0 20px #ff00ff,
+        0 0 40px #ff00ff,
+        0 0 80px #ff00ff,
+        0 0 120px #ff00ff;
+    animation: neon-effect 1.5s infinite alternate;
+    margin-top:85px;
+}
+
+@keyframes neon-effect {
+    from {
+        text-shadow: 
+            0 0 5px #ff00ff,
+            0 0 10px #ff00ff,
+            0 0 20px #ff00ff,
+            0 0 40px #ff00ff,
+            0 0 80px #ff00ff,
+            0 0 120px #ff00ff;
+    }
+    to {
+        text-shadow: 
+            0 0 10px #ffffff,
+            0 0 20px #ffffff,
+            0 0 30px #ff00ff,
+            0 0 40px #ff00ff,
+            0 0 50px #ff00ff,
+            0 0 60px #ff00ff;
+    }
+}
+/* Estilo para "GAME" en cian */
+.game-title {
+    font-family: 'Monoton', cursive;
+    font-size: 25px;
+    color: #00ffff; /* Color cian para el texto */
+    text-align: center;
+    text-shadow: 
+        0 0 5px #00ffff,
+        0 0 10px #00ffff,
+        0 0 20px #00ffff,
+        0 0 40px #00ffff,
+        0 0 80px #00ffff;
+    transform: rotate(-30deg); /* Rota el texto en diagonal */
+    position: absolute;
+    top: 90px; /* Ajusta la posición vertical */
+    left: 56%;
+    transform-origin: top left; /* Hace que la rotación sea desde la esquina superior izquierda */
+    transform: rotate(-30deg) translateX(-50%); /* Aplica la rotación y centra el texto horizontalmente */
+}
+
+.hanging-chain {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 20px; /* Altura de la cadena */
+    background-color: #00ffff; /* Color de la cadena */
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; /* Efecto de neón en la cadena */
+    transform-origin: top left;
+    transform: rotate(-30deg) translateX(-50%);
+}
+
+/* Estilo para "FROG" en verde con parpadeo rápido */
+.frog-title {
+    font-family: 'Monoton', cursive;
+    font-size: 25px;
+    color: #00ff00; /* Color verde para el texto */
+    text-align: center;
+    text-shadow: 
+        0 0 5px #00ff00,
+        0 0 10px #00ff00,
+        0 0 20px #00ff00,
+        0 0 40px #00ff00,
+        0 0 80px #00ff00;
+    transform: rotate(-30deg); /* Rota el texto en diagonal */
+    position: absolute;
+    top: 120px; /* Ajusta la posición vertical */
+    left: 42%;
+    transform-origin: top left;
+    transform: rotate(-90deg) translateX(-50%);
+    animation: neon-blink 0.5s infinite; /* Parpadeo rápido */
+}
+
+.hanging-chain-green {
+    position: absolute;
+    top: 40px; /* Ajusta la posición de la cadena para "FROG" */
+    left: 50%;
+    width: 2px;
+    height: 20px;
+    background-color: #00ff00; /* Color de la cadena en verde */
+    box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+    transform-origin: top left;
+    transform: rotate(-30deg) translateX(-50%);
+}
+
+/* Animación de parpadeo rápido */
+@keyframes neon-blink {
+    0%, 100% {
+        opacity: 1;
+        text-shadow: 
+            0 0 5px #bcf7de,
+            0 0 10px #bcf7de,
+            0 0 20px #bcf7de,
+            0 0 40px #00ff8c,
+            0 0 80px #00ffcc;
+    }
+    50% {
+        opacity: 0.5;
+        text-shadow: 
+            0 0 10px #bcf7de,
+            0 0 20px #bcf7de,
+            0 0 30px #00ffff,
+            0 0 50px #bcf7de;
+    }
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+    .game-title, .frog-title {
+        font-size: 20px;
+        top: 70px; /* Ajusta la posición para pantallas más pequeñas */
+        margin-right: 30px;
+    }
+
+    .hanging-chain, .hanging-chain-green {
+        height: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-title, .frog-title {
+        font-size: 16px;
+        top: 60px; /* Ajusta la posición para pantallas más pequeñas */
+        margin-right: 30px;
+
+    }
+
+    .hanging-chain, .hanging-chain-green {
+        height: 10px;
+    }
+
+    .open-title{
+         top:95px;
+}
+}
+
+
+
     </style>
     
 </head>
 <body>
     <div class="pizza-title">PIZZA</div>
+    <div class="open-title">OPEN</div>
+    <div class="hanging-chain"></div>
+    <div class="game-title">GAME</div>
+    <div class="hanging-chain-green"></div>
+<div class="frog-title">FROG</div>
     <div class="score">Puntaje: <span id="score">0</span></div>
     <div class="rewards-list">
         <ul>
@@ -404,6 +586,9 @@
     <div id="score-details"></div>
     
     <canvas id="gameCanvas" width="800" height="600"></canvas>
+
+    <div class="pizza-title1">GourmetFloral</div>
+
     <div id="controls">
         
    
@@ -849,14 +1034,9 @@ function showAuthModal() {
     }
 });
 
-    </script>
+</script>
 </body>
-
-
 </html>
-
-
-
 
 
 
