@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Juego del Sapo</title>
+    <meta property="og:title" content="Gourmet Floral">
+    <meta property="og:description" content="GamePizza">
+    <title>PizzaFrog</title>
+    <link rel="icon" type="image/x-icon" href="fondo.webp">
+    <link rel="icon" href="logo.jpeg" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Alfonso Pretelt - Arte y Psique - Collage">
+    <meta name="keywords" content="pizzagame, alfonsopretelt,interactividad">
+    <meta name="author" content="alfonsopretelt">
+    <meta name="robots" content="collage">
+    <meta name="google" content="translate">
 
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -783,7 +794,7 @@ document.getElementById('toggleFormBtn').addEventListener('click', () => {
         let pizzas = [];
         let clouds = [];
         let score = 0;
-        const pizzaSpeed = 2;
+        const pizzaSpeed = 4;
         const cloudSpeed = 0.5;
         const pizzaFrequency = 60;
         let frameCount = 0;
@@ -831,7 +842,7 @@ document.getElementById('toggleFormBtn').addEventListener('click', () => {
             frog.colliding = false;
         }, 300);
     } else {
-        ctx.fillStyle = isBlinking ? '#00FF00' : '#AAFFAA'; // Verde claro y más claro
+        ctx.fillStyle = isBlinking ? '#00FF00' : '#AAFFAA'; 
     }
 
     // Dibujar la rana
@@ -1034,12 +1045,49 @@ function showAuthModal() {
     }
 });
 
+
+// Definir parámetros para las abejas
+const numBees = 5;
+const beeRadius = 5;
+const beeOrbitRadius = 50; 
+const beeSpeed = 0.01; 
+let beeAngle = 0;
+
+function drawBee(x, y) {
+    ctx.fillStyle = '#FFD700'; 
+    ctx.beginPath();
+    ctx.arc(x, y, beeRadius, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+function updateBees() {
+    beeAngle += beeSpeed; 
+
+    for (let i = 0; i < numBees; i++) {
+        const angle = beeAngle + (i * (Math.PI * 2 / numBees)); 
+        const x = canvas.width / 2 + Math.cos(angle) * beeOrbitRadius;
+        const y = canvas.height / 2 + Math.sin(angle) * beeOrbitRadius;
+
+        drawBee(x, y);
+    }
+}
+function gameLoop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    updateClouds();
+    drawFrog();
+    updatePizzas();
+    updateBees(); 
+    frameCount++;
+    if (gameStarted) {
+        animationFrameId = requestAnimationFrame(gameLoop);
+    }
+}
+
     </script>
 </body>
 
 
 </html>
-
 
 
 
