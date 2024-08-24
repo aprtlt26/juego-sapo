@@ -8,7 +8,7 @@
     <meta property="og:description" content="GamePizza">
     <title>PizzaFrog</title>
     <link rel="icon" type="image/x-icon" href="fondo.webp">
-    <link rel="icon" href="logo.jpeg" type="image/x-icon">
+    <link rel="icon" href="fondo.webp" type="image/x-icon">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Alfonso Pretelt - Arte y Psique - Collage">
     <meta name="keywords" content="pizzagame, alfonsopretelt,interactividad">
@@ -587,9 +587,9 @@
     <div class="score">Puntaje: <span id="score">0</span></div>
     <div class="rewards-list">
         <ul>
-            <li>1000 Entrega gratuita</li>
-            <li>3000 Borde Relleno</li>
-            <li>5000 Pizza Gratis!</li>
+            <li>250 Entrega gratuita</li>
+            <li>300 Borde Relleno</li>
+            <li>500 Pizza Gratis!</li>
         </ul>
     </div>
 
@@ -794,9 +794,9 @@ document.getElementById('toggleFormBtn').addEventListener('click', () => {
         let pizzas = [];
         let clouds = [];
         let score = 0;
-        const pizzaSpeed = 4;
+        const pizzaSpeed = 15;
         const cloudSpeed = 0.5;
-        const pizzaFrequency = 60;
+        const pizzaFrequency = 50;
         let frameCount = 0;
 
         const groundY = frog.y;
@@ -916,7 +916,7 @@ document.getElementById('toggleFormBtn').addEventListener('click', () => {
                 if (!audioMuted) {
                     collisionAudio.play();
                 }
-                if (score >= 1000 && currentUser) {
+                if (score >= 250 && currentUser) {
                     updateRewards();
                 } else if (score >= 10 && !currentUser && !authModalShown) {
                     authModalShown = true; // Marca que el formulario ya fue mostrado
@@ -961,9 +961,9 @@ function showAuthModal() {
 
         function updateRewards() {
             let rewards = [];
-            if (score >= 1000) rewards.push("10% de descuento");
-            if (score >= 3000) rewards.push("Domicilio gratis");
-            if (score >= 5000) rewards.push("Pizza gratis");
+            if (score >= 250) rewards.push("Domicilio gratis");
+            if (score >= 350) rewards.push("borde relleno");
+            if (score >= 500) rewards.push("Pizza gratis");
 
             updateDoc(doc(db, "usuarios", currentUser.uid), {
                 highScore: score,
