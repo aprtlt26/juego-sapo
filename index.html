@@ -17,7 +17,7 @@
             height: 100vh;
             margin: 0;
             font-family: 'Press Start 2P', monospace;
-            font-size:8px;
+            font-size: 8px;
             background-color: #000000;
             color: #c2f13f;
             flex-direction: column;
@@ -35,6 +35,7 @@
             background-repeat: no-repeat;
             background-position: center;
             height: 80%;
+            margin-top: 170px;
         }
 
         .score {
@@ -43,6 +44,36 @@
             left: 20px;
             font-size: 24px;
             z-index: 1;
+        }
+
+        .pizza-title {
+            position: absolute;
+            top: 50px;
+            width: 100%;
+            text-align: center;
+            font-size: 48px;
+            font-family: 'Press Start 2P', cursive;
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+            animation: neon 1.5s infinite alternate;
+        }
+
+        .rewards-list {
+            position: absolute;
+            top: 60px;
+            left: 5px;
+            font-size: 14px;
+            color: #c2f13f;
+            z-index: 2;
+        }
+
+        @keyframes neon {
+            from {
+                text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #00ffe1, 0 0 40px #ff00ff, 0 0 50px #f2ff00, 0 0 60px #ff00ff, 0 0 70px #ff00ff;
+            }
+            to {
+                text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #00f2ff, 0 0 50px #ff00ff, 0 0 60px #f6ff00, 0 0 70px #ff00ff, 0 0 80px #ff00ff;
+            }
         }
 
         button {
@@ -72,7 +103,6 @@
             width: 25%;
             transform: translate(-50%, -50%);
             box-shadow: 0 0 10px #d5cece;
-
         }
 
         button#muteBtn {
@@ -83,14 +113,12 @@
             font-size: 24px;
             z-index: 1;
             box-shadow: 0 0 10px #d5cece;
-
         }
 
         #controls {
             display: flex;
             justify-content: center;
             margin-top: 20px;
-            
         }
 
         @media (max-width: 768px) {
@@ -106,7 +134,7 @@
 
             #controls {
                 display: flex;
-                position: absolute;
+                position: relative;
                 bottom: 5px;
                 left: 50%;
                 transform: translateX(-50%);
@@ -137,7 +165,7 @@
             }
 
             #controls {
-                position: absolute;
+                position: relative;
                 bottom: 10px;
                 left: 50%;
                 transform: translateX(-50%);
@@ -190,18 +218,19 @@
         }
 
         #auth-modal button {
-            width: 95%;
-            padding: 10px;
-            margin-top: 10px;
-            background-color: #0bf612;
-            color: #151b1e;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            box-shadow: 0 0 5px #222;
-        }
+    width: 95%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #0bf612;
+    color: #151b1e;
+    border: none; /* Eliminar el borde para dejarlo recto */
+    border-radius: 0; /* Asegurarse de que no haya esquinas redondeadas */
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    box-shadow: 0 0 5px #222; /* Mantener la sombra si la quieres */
+}
+
 
         #auth-message {
             margin-top: 15px;
@@ -238,180 +267,168 @@
             margin-top: 20px;
         }
 
-        .rewards-list{
-             margin-top:55px;
- 
-        }
-
         #toggleRegisterFormBtn {
-    position: absolute;
-    width: 5%;
-    height: 5%;
-    left: 85%;
-    transform: translateX(-50%);
-    z-index: 2;
-    padding: 10px 10px;
-    background-color: #0bf6b7f4;
-    text-shadow: 0 0 10px #ffffff;
-    top: 35px; /* Ajuste para dispositivos más pequeños */
-    color: #080808;
-    border-radius:5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    font-family: 'Press Start 2P', monospace;
-    font-size: 5px;
-    cursor: pointer;
-    text-transform: uppercase;
-}
-
-@media (max-width: 768px) {
-    #toggleRegisterFormBtn {
-
-    position: absolute;
-    width:5%;
-    height:5%;
-    left: 85%;
-    transform: translateX(-50%);
-    z-index: 2;
-    padding: 10px 10px;
-    background-color: #00000000;
-    box-shadow: 0 0 10px #ffffff;
-    top: -580px; /* Ajuste para dispositivos más pequeños */
-    border: none;
-    color: #4dffcf;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    font-family: 'Press Start 2P', monospace;
-    font-size: 10px;
-    cursor: pointer;
-    text-transform: uppercase;
-
+            position: absolute;
+            width: 5%;
+            height: 5%;
+            left: 85%;
+            transform: translateX(-50%);
+            z-index: 2;
+            padding: 10px 10px;
+            background-color: #0bf6b7f4;
+            text-shadow: 0 0 10px #ffffff;
+            top: 35px; /* Ajuste para dispositivos más pequeños */
+            color: #080808;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            font-family: 'Press Start 2P', monospace;
+            font-size: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
         }
-}
 
-@media (max-width: 480px) {
+        @media (max-width: 768px) {
+            #toggleRegisterFormBtn {
+                position: absolute;
+                width: 5%;
+                height: 5%;
+                left: 85%;
+                transform: translateX(-50%);
+                z-index: 2;
+                padding: 10px 10px;
+                background-color: #00000000;
+                box-shadow: 0 0 10px #ffffff;
+                top: -580px; /* Ajuste para dispositivos más pequeños */
+                border: none;
+                color: #4dffcf;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                font-family: 'Press Start 2P', monospace;
+                font-size: 10px;
+                cursor: pointer;
+                text-transform: uppercase;
+            }
+        }
 
-    #toggleRegisterFormBtn {
-        position: absolute;
-        width:5%;
-    height:5%;
-    left: 85%;
-    transform: translateX(-50%);
-    z-index: 2;
-    padding: 10px 20px;
-    background-color: #00000000;
-    box-shadow: 0 0 10px #ffffff;
-    top: -580px; /* Ajuste para dispositivos más pequeños */
-border: none;
-    color: #4dffcf;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    font-family: 'Press Start 2P', monospace;
-    font-size: 10px;
-    cursor: pointer;
-    text-transform: uppercase;
-    }
-}
+        @media (max-width: 480px) {
+            #toggleRegisterFormBtn {
+                position: absolute;
+                width: 5%;
+                height: 5%;
+                left: 85%;
+                transform: translateX(-50%);
+                z-index: 2;
+                padding: 10px 20px;
+                background-color: #00000000;
+                box-shadow: 0 0 10px #ffffff;
+                top: -580px; /* Ajuste para dispositivos más pequeños */
+                border: none;
+                color: #4dffcf;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                font-family: 'Press Start 2P', monospace;
+                font-size: 10px;
+                cursor: pointer;
+                text-transform: uppercase;
+            }
+        }
 
+        /* Estilo de los botones de control con iconos */
+        #controls button {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 2px solid #0bf6b7;
+            border-radius: 50%;
+            font-size: 24px;
+            color: #c2f13f;
+            cursor: pointer;
+            box-shadow: 0 0 15px #0bf6b7, 0 0 30px #0bf6b7;
+            text-align: center;
+            line-height: 50px;
+            transition: all 0.3s ease-in-out;
+            animation: blink 1.5s infinite;
+        }
 
-.rewards-list {
-    margin-top: 60px;
-    font-size: 12px;
-    text-align: left;
-    padding: 0 20px;
-}
+        #controls button:hover {
+            box-shadow: 0 0 30px #ffffff, 0 0 60px #0bf6b7;
+            color: #ffffff;
+        }
 
-@media (max-width: 768px) {
-    .rewards-list {
-        font-size: 10px;
-        padding: 0 15px;
-        margin-top: 40px;
-    }
-}
+        /* Iconos de Font Awesome */
+        #leftBtn i, #rightBtn i, #tongueBtn i, #jumpBtn i {
+            font-size: 24px;
+        }
 
-@media (max-width: 480px) {
-    .rewards-list {
-        font-size: 8px;
-        padding: 0 10px;
-        margin-top: 30px;
-    }
+        .tongue {
+            position: relative;
+            display: inline-block;
+            color: red;
+            font-size: 18px;
+            text-shadow: 2px 2px 4px #000;
+        }
 
-    
-}
+        .tongue::before {
+            content: '👅';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 28px; /* Tamaño grande para destacar */
+            animation: tongueOut 0.5s ease-in-out forwards;
+        }
 
-/* Estilo de botones para controles */
+        /* Parpadeo animado */
+        @keyframes blink {
+            0%, 100% {
+                box-shadow: 0 0 15px #0bf6b7, 0 0 30px #0bf6b7;
+            }
+            50% {
+                box-shadow: 0 0 30px #ffffff, 0 0 60px #0bf6b7;
+            }
+        }
 
-
-/* Estilo de los botones de control con iconos */
-#controls button {
-    width: 50px;
-    height: 50px;
-    background-color: rgba(0, 0, 0, 0.7);
-    border: 2px solid #0bf6b7;
-    border-radius: 50%;
-    font-size: 24px;
-    color: #c2f13f;
-    cursor: pointer;
-    box-shadow: 0 0 15px #0bf6b7, 0 0 30px #0bf6b7;
-    text-align: center;
-    line-height: 50px;
-    transition: all 0.3s ease-in-out;
-    animation: blink 1.5s infinite;
-}
-
-#controls button:hover {
-    box-shadow: 0 0 30px #ffffff, 0 0 60px #0bf6b7;
-    color: #ffffff;
-}
-
-/* Iconos de Font Awesome */
-#leftBtn i, #rightBtn i, #tongueBtn i, #jumpBtn i {
-    font-size: 24px;
-}
-#leftBtn i, #rightBtn i, #tongueBtn i, #jumpBtn i {
-    font-size: 24px;
-}
-.tongue {
-    position: relative;
-    display: inline-block;
-    color: red;
-    font-size: 18px;
-    text-shadow: 2px 2px 4px #000;
-}
-
-.tongue::before {
-    content: '👅';
+        .pizza-title {
     position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 28px; /* Tamaño grande para destacar */
-    animation: tongueOut 0.5s ease-in-out forwards;
+    top: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 48px;
+    font-family: 'Press Start 2P', cursive;
+    color: #c0c0c0; /* Color plateado */
+    text-shadow: 0 0 10px #c0c0c0, 0 0 20px #c0c0c0, 0 0 30px #c0c0c0;
+    animation: neon-silver 1.5s infinite alternate;
+    margin-top: 50px;
 }
 
-/* Parpadeo animado */
-@keyframes blink {
+@keyframes neon-silver {
     0%, 100% {
-        box-shadow: 0 0 15px #0bf6b7, 0 0 30px #0bf6b7;
+        text-shadow: 0 0 10px  #bc58ff, 0 0 20px #c0c0c0, 0 0 30px #bc58ff, 0 0 40px #c0c0c0;
     }
     50% {
-        box-shadow: 0 0 30px #ffffff, 0 0 60px #0bf6b7;
+        text-shadow: 0 0 20px #ffffff, 0 0 40px #ffffff, 0 0 60px #bc58ff, 0 0 80px #c0c0c0;
     }
 }
-
 
 
     </style>
 </head>
 <body>
+    <div class="pizza-title">PIZZA</div>
     <div class="score">Puntaje: <span id="score">0</span></div>
     <div class="rewards-list">
-        <p>Points:</p>
-        <p>1000 Free Delivery</p>
-        <p>3000 Borde Relleno</p>
-        <p>5000 Pizza Gratis!</p>
-
+        <ul>
+            <li>1000 Entrega gratuita</li>
+            <li>3000 Borde Relleno</li>
+            <li>5000 Pizza Gratis!</li>
+        </ul>
     </div>
+
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <div id="controls">
+        
     <div id="score-details"></div>
     
-   
+
+  
     <button id="startBtn">Iniciar</button>
     <button id="muteBtn">🔇</button>
     <button id="logoutBtn" style="display:none;">Salir</button>
@@ -430,7 +447,6 @@ border: none;
     </div>
 
 
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
 
     <!-- Modal de autenticación -->
     <div id="auth-modal" style="display:none;">
@@ -629,8 +645,11 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
                 }, 200);
             }
         }
-
         function drawFrog() {
+    // Añadir el efecto de neón al sapo
+    ctx.shadowColor = frog.colliding ? '#FFD700' : '#00FF00'; // Color de la sombra dependiendo si está colisionando o no
+    ctx.shadowBlur = 20; // Intensidad del brillo
+
     if (frog.colliding) {
         ctx.fillStyle = '#FFD700';
         setTimeout(() => {
@@ -639,15 +658,19 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
     } else {
         ctx.fillStyle = '#00FF00';
     }
+    
     ctx.font = "15px Arial";
     ctx.fillText(" @..@ ", frog.x - 10, frog.y - 15);
     ctx.fillText("(( ---- ))", frog.x - 10, frog.y + 5);
     ctx.fillText("((           ))", frog.x - 18, frog.y + 25);
     ctx.fillText("^^^^ ~~ ^^^^", frog.x - 25, frog.y + 45);
 
+    // Dibujar la lengua si está extendida
     if (frog.tongueOut) {
-        frog.tongueLength = 100;  // Aquí estableces la nueva longitud de la lengua
+        frog.tongueLength = 100; // Aquí estableces la nueva longitud de la lengua
         ctx.fillStyle = 'red';
+        ctx.shadowColor = 'red'; // Efecto de neón rojo para la lengua
+        ctx.shadowBlur = 20; // Intensidad del brillo para la lengua
         ctx.beginPath();
         ctx.moveTo(frog.x + 13, frog.y);
         ctx.lineTo(frog.x + 13, frog.y - frog.tongueLength);
@@ -655,7 +678,12 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
         ctx.closePath();
         ctx.fill();
     }
+
+    // Restaurar el contexto gráfico para que otros elementos no se vean afectados
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
 }
+
 
 
         function drawPizza(x, y) {
@@ -833,6 +861,7 @@ function showAuthModal() {
 
 
 </html>
+
 
 
 
