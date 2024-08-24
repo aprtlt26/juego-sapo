@@ -23,6 +23,8 @@
             overflow: hidden;
             touch-action: none;
             user-select: none;
+            height: auto;
+
         }
     
         canvas {
@@ -33,23 +35,23 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-            width: 70%;
+            width: 60%;
             height: auto;
-            margin-top: 190px;
+            margin-top: 150px;
             max-height: 80vh; /* Ajusta la altura máxima del canvas */
         }
     
         .score {
             position: absolute;
-            top: 60px;
+            top: 80px;
             left: 20px;
-            font-size: 24px;
+            font-size: 18px;
             z-index: 1;
         }
     
         .pizza-title {
             position: absolute;
-            top: 30px;
+            top: 20px;
             width: 100%;
             text-align: center;
             font-size: 44px; /* Ajusta el tamaño en móviles */
@@ -60,16 +62,16 @@
     
         .rewards-list {
             position: absolute;
-            top: 80px;
+            top: 100px;
             left: 5px;
-            font-size: 12px;
+            font-size: 10px;
             color: #d9ff70;
             z-index: 2;
         }
     
         button {
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             background-color: rgba(0, 0, 0, 0.476);
             box-shadow: 9 9 15px #e2e2e2;
             border: 2px solid #0bf6b7;
@@ -81,9 +83,9 @@
     
         button#startBtn {
             position: absolute;
-            top: 50%;
+            top: 30%;
             left: 50%;
-            padding: 10px 20px;
+            padding: 1px 10px;
             font-size: 16px;
             border: none;
             border-radius: 5px;
@@ -97,11 +99,12 @@
         }
     
         button#muteBtn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+            display: flex;
+            position: relative;
+            top: 5px;
+            right: 1px;
             background: transparent;
-            font-size: 24px;
+            font-size: 8px;
             z-index: 1;
             box-shadow: 0 0 10px #d5cece;
         }
@@ -124,10 +127,10 @@
             }
     
             canvas {
-                width: 95%;
+                width: 70%;
                 height: auto;
                 max-height: 50vh;
-                margin-top: 10px;
+                margin-top: 60px;
             }
     
             #controls {
@@ -144,7 +147,7 @@
     
             button#startBtn {
                 width: 50%;
-                margin-top: 20px;
+                margin-top: 10px;
             }
         }
     
@@ -158,7 +161,7 @@
             }
     
             canvas {
-                width: 100%;
+                width: 90%;
                 height: auto;
                 max-height: 65vh;
             }
@@ -193,7 +196,7 @@
             width: 80%;
             max-width: 400px;
             color: #c2f13f;
-            font-family: 'Courier New', monospace;
+            font-family: 'Press Start 2P', monospace;
             text-align: center;
         }
     
@@ -354,6 +357,35 @@
                 text-shadow: 0 0 20px #ffffff, 0 0 40px #ffffff, 0 0 60px #bc58ff, 0 0 80px #c0c0c0;
             }
         }
+
+
+    #register-btn, #toggleFormBtn, #skipRegisterBtn {
+    width: auto;
+    padding: 1px 10px;
+    margin-top: 10px;
+    background-color: #0bf612;
+    color: #151b1e;
+    border: none;
+    border-radius: 5px; /* Esquinas redondeadas */
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-size: 5px;
+    box-shadow: 0 0 5px #222;
+    display:inline;
+    align-items: center;
+    justify-content: center;
+}
+
+#register-btn i, #toggleFormBtn i, #skipRegisterBtn i {
+    margin-right: 5px; /* Espacio entre el ícono y el texto */
+}
+
+#register-btn:hover, #toggleFormBtn:hover, #skipRegisterBtn:hover {
+    background-color: #0ae40e;
+    box-shadow: 0 0 10px #0bf6b7;
+    color: #ffffff;
+}
+
     </style>
     
 </head>
@@ -368,16 +400,17 @@
         </ul>
     </div>
 
+    <button id="logoutBtn" style="display:none;"><i class="fas fa-sign-out-alt"></i></button>
+    <div id="score-details"></div>
+    
     <canvas id="gameCanvas" width="800" height="600"></canvas>
     <div id="controls">
         
-    <div id="score-details"></div>
-    
+   
 
   
     <button id="startBtn"><i class="fas fa-gamepad"></i> </button>
     <button id="muteBtn">🔇</button>
-    <button id="logoutBtn" style="display:none;">Salir</button>
     <div id="controls">
         <div id="controls">
             <button id="leftBtn"><i class="fas fa-arrow-left"></i></button>
@@ -401,24 +434,27 @@
                 <form id="login-form">
                     <input type="email" id="login-email" placeholder="Your Email" required><br>
                     <input type="password" id="login-password" placeholder="Your Password" required><br>
-                    <button type="button" id="login-btn">Entrar</button>
-                </form>
+                    <button type="button" id="login-btn"><i class="fas fa-sign-in-alt"></i> </button>
+                                    </form>
             </div>
             <div id="register-section" style="display: block;">
                 <form id="register-form">
                     <input type="text" id="nombre" placeholder="Your Name" required><br>
                     <input type="email" id="correo" placeholder="Your Email" required><br>
                     <input type="password" id="clave" placeholder="Your Password" required><br>
-                    <button type="button" id="register-btn">Log In</button>
                 </form>
             </div>
             <p id="register-message">
-                Regístrate para guardar tu puntuación:
+                Regístrate para guardar tu puntuación, o inicia tu sesión para ver tus premios:
                
             </p>
-            <button id="toggleFormBtn">Login</button>
-            <button id="skipRegisterBtn">Me registro después</button>
-            <div id="auth-message"></div>
+            <button type="button" id="register-btn"><i class="fas fa-user-plus"></i> </button>
+
+            <button id="toggleFormBtn"><i class="fas fa-sign-in-alt"></i> </button>
+            
+            <button id="skipRegisterBtn"><i class="fas fa-times"></i> </button>
+
+            
         </section>
     </div>
 
@@ -496,20 +532,22 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
     }
 });
 
+document.getElementById('toggleFormBtn').addEventListener('click', () => {
+    const loginSection = document.getElementById("login-section");
+    const registerSection = document.getElementById("register-section");
+    const toggleFormBtn = document.getElementById('toggleFormBtn');
+    
+    if (loginSection.style.display === "none") {
+        loginSection.style.display = "block";
+        registerSection.style.display = "none";
+        toggleFormBtn.innerHTML = '<i class="fas fa-user-plus"></i>'; // Icono para registro
+    } else {
+        loginSection.style.display = "none";
+        registerSection.style.display = "block";
+        toggleFormBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i>'; // Icono para login
+    }
+});
 
-        document.getElementById('toggleFormBtn').addEventListener('click', () => {
-            const loginSection = document.getElementById("login-section");
-            const registerSection = document.getElementById("register-section");
-            if (loginSection.style.display === "none") {
-                loginSection.style.display = "block";
-                registerSection.style.display = "none";
-                document.getElementById('toggleFormBtn').innerText = "Switch to Register";
-            } else {
-                loginSection.style.display = "none";
-                registerSection.style.display = "block";
-                document.getElementById('toggleFormBtn').innerText = "Switch to Login";
-            }
-        });
 
         document.getElementById('skipRegisterBtn').addEventListener('click', () => {
             hideAuthModal();
@@ -594,13 +632,13 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
         function drawFrog() {
     // Añadir el efecto de neón al sapo
     ctx.shadowColor = frog.colliding ? '#FFD700' : '#00FF00'; // Color de la sombra dependiendo si está colisionando o no
-    ctx.shadowBlur = 20; // Intensidad del brillo
+    ctx.shadowBlur = 5; // Intensidad del brillo
 
     if (frog.colliding) {
         ctx.fillStyle = '#FFD700';
         setTimeout(() => {
             frog.colliding = false;
-        }, 100);
+        }, 300);
     } else {
         ctx.fillStyle = '#00FF00';
     }
@@ -616,7 +654,7 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
         frog.tongueLength = 100; // Aquí estableces la nueva longitud de la lengua
         ctx.fillStyle = 'red';
         ctx.shadowColor = 'red'; // Efecto de neón rojo para la lengua
-        ctx.shadowBlur = 20; // Intensidad del brillo para la lengua
+        ctx.shadowBlur = 50; // Intensidad del brillo para la lengua
         ctx.beginPath();
         ctx.moveTo(frog.x + 13, frog.y);
         ctx.lineTo(frog.x + 13, frog.y - frog.tongueLength);
@@ -627,7 +665,7 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
 
     // Restaurar el contexto gráfico para que otros elementos no se vean afectados
     ctx.shadowColor = "transparent";
-    ctx.shadowBlur = 0;
+    ctx.shadowBlur = 10;
 }
 
 
@@ -807,6 +845,7 @@ function showAuthModal() {
 
 
 </html>
+
 
 
 
