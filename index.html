@@ -637,6 +637,39 @@
 }
 
 
+       /* Media Queries para la ventana del mensaje de inicio */
+
+/* Pantallas medianas (tabletas, etc.) */
+@media (max-width: 768px) {
+    #chatWindow {
+        width: 70%; /* Reduce el ancho en pantallas medianas */
+        padding: 15px; /* Ajusta el padding */
+        font-size: 10px; /* Reduce el tamaño de la fuente */
+    }
+
+    #closeChatBtn {
+        font-size: 14px; /* Reduce el tamaño del botón de cierre */
+        top: 5px; /* Ajusta la posición superior */
+        right: 10px; /* Ajusta la posición derecha */
+    }
+}
+
+/* Pantallas pequeñas (teléfonos móviles, etc.) */
+@media (max-width: 480px) {
+    #chatWindow {
+        width: 90%; /* Ancho casi completo en pantallas pequeñas */
+        padding: 10px; /* Reduce el padding */
+        font-size: 8px; /* Reduce aún más el tamaño de la fuente */
+    }
+
+    #closeChatBtn {
+        font-size: 12px; /* Reduce el tamaño del botón de cierre */
+        top: 3px; /* Ajusta la posición superior */
+        right: 8px; /* Ajusta la posición derecha */
+    }
+}
+
+
     </style>
     
 </head>
