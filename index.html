@@ -35,6 +35,7 @@
             background-color: #000000;
             color: #c2f13f;
             flex-direction: column;
+            overflow: hidden;
             touch-action: none;
             user-select: none;
             height: auto;
@@ -570,12 +571,82 @@
 }
 }
 
+#chatWindow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20%; /* Ancho del mensaje */
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente */
+    color: #d2f76f;
+    padding: 20px;
+    border-radius: 10px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    box-shadow: 0 0 15px #0bf6b7; /* Sombra luminosa */
+    z-index: 1000;
+    display: none; /* Oculto por defecto */
+    text-align: center;
+}
+
+#closeChatBtn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: #c2f13f;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.typing {
+    border-right: 2px solid #c2f13f;
+    animation: typingCursor 0.2s steps(1) infinite;
+}
+
+@keyframes typingCursor {
+    from {
+        border-color: transparent;
+    }
+    to {
+        border-color: #c2f13f;
+    }
+}
+
+
+#handIcon {
+    position: absolute;
+    top:55%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 30px;
+    color: #0bf612;
+    animation: handBounce 1s infinite;
+    z-index: 1001; /* Asegura que la mano esté por encima de otros elementos */
+}
+
+@keyframes handBounce {
+    0%, 100% {
+        transform: translate(-50%, -10%);
+    }
+    50%{
+        transform: translate(-50%, 10%);
+    }
+}
 
 
     </style>
     
 </head>
 <body>
+
+    <div id="chatWindow">
+        <button id="closeChatBtn">X</button>
+        <span id="chatMessage"></span><span class="typing"></span>
+    </div>
+    
     <div class="pizza-title">PIZZA</div>
     <div class="open-title">OPEN</div>
     <div class="hanging-chain"></div>
@@ -604,6 +675,8 @@
 
   
     <button id="startBtn"><i class="fas fa-gamepad"></i> </button>
+    <div id="handIcon"><i class="fas fa-hand-pointer"></i></div>
+
     <button id="muteBtn">🔇</button>
     <div id="controls">
         <div id="controls">
@@ -1081,11 +1154,65 @@ function gameLoop() {
     }
 }
 
+
+document.addEventListener('DOMContentLoaded', () => {
+    const messages = [
+        "Si estás en tu computadora, usa las flechas y la barra espaciadora para jugar.     Si estás en tu dispositivo móvil, usa los botones debajo del escenario. Acomula puntos y reclama pizza gratis"
+    ];
+    let messageIndex = 0;
+    let charIndex = 0;
+    const chatWindow = document.getElementById('chatWindow');
+    const chatMessage = document.getElementById('chatMessage');
+    const startBtn = document.getElementById('startBtn');
+    const closeChatBtn = document.getElementById('closeChatBtn');
+
+    function typeMessage() {
+        if (charIndex < messages[messageIndex].length) {
+            chatMessage.textContent += messages[messageIndex].charAt(charIndex);
+            charIndex++;
+            setTimeout(typeMessage, 10); // Velocidad de escritura
+        } else if (messageIndex < messages.length - 1) {
+            setTimeout(() => {
+                messageIndex++;
+                charIndex = 0;
+                chatMessage.textContent = '';
+                typeMessage();
+            }, 2000); // Pausa antes de mostrar el siguiente mensaje
+        }
+    }
+
+    startBtn.addEventListener('click', () => {
+        chatMessage.textContent = ''; // Limpiar el contenido previo
+        messageIndex = 0;
+        charIndex = 0;
+        chatWindow.style.display = 'block'; // Muestra la ventana de chat
+        typeMessage(); // Comienza a escribir el mensaje
+    });
+
+    closeChatBtn.addEventListener('click', () => {
+        chatWindow.style.display = 'none'; // Ocultar el chat al hacer clic en el botón de cerrar
+    });
+});
+
+startBtn.addEventListener('click', () => {
+    // Ocultar la mano cuando se pulsa el botón de "Start"
+    document.getElementById('handIcon').style.display = 'none';
+
+    // Mostrar el mensaje de instrucciones
+    chatMessage.textContent = ''; // Limpiar el contenido previo
+    messageIndex = 0;
+    charIndex = 0;
+    chatWindow.style.display = 'block'; // Muestra la ventana de chat
+    typeMessage(); // Comienza a escribir el mensaje
+});
+
+
     </script>
 </body>
 
 
 </html>
+
 
 
 
